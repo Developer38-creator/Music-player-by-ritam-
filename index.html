@@ -1,137 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Music Player</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #4A00E0, #8E2DE2); /* Gradient background */
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow: hidden; /* Hide scrollbars */
-        }
+  <title>Sangeet Sagar (Prototype)</title>
+  <style>
+    /* Basic Styles - Adapt as needed */
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center horizontally */
+      justify-content: flex-start; /* Align items to the top */
+      min-height: 100vh; /* Make sure the body fills the viewport height */
+    }
 
-        .music-container {
-            background-color: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            width: 350px;
-            text-align: center;
-            backdrop-filter: blur(10px); /* Further blur */
-            transition: transform 0.3s ease-in-out; /* Hover animation */
-        }
+    .container {
+      width: 80%;
+      max-width: 600px; /* Limiting width for readability */
+      margin-top: 20px; /* Add some top margin */
+    }
 
-        .music-container:hover {
-            transform: scale(1.05);
-        }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-        .music-container img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease-in-out;
-        }
+    .music-player {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .music-container img:hover {
-            transform: scale(1.1);
-        }
+    audio {
+      width: 100%;
+      margin-bottom: 10px;
+    }
 
-        .music-container h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
+    .controls {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
 
-        .music-container audio {
-            width: 100%;
-            outline: none;
-        }
+    button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
 
-        /* Optional: Add a glowing effect */
-        .music-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #FF00FF, #00FFFF, #FF00FF);
-            z-index: -1;
-            transform: scale(1.1);
-            filter: blur(20px);
-            opacity: 0.5;
-            transition: opacity 0.3s ease-in-out;
-            border-radius: 15px;
-        }
+    button:hover {
+      opacity: 0.8;
+    }
 
-        .music-container:hover::before {
-            opacity: 0.8;
-        }
-    </style>
+    .playlist {
+      margin-top: 20px;
+    }
+
+    .playlist ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .playlist li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+
+    .playlist li:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Simple Visualizer (Placeholder - Replace with JS-based visualizer) */
+    #visualizer {
+      width: 100%;
+      height: 50px;
+      background-color: #ccc;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    /* Placeholder Progress Bar */
+    #progress-bar-container {
+      width: 100%;
+      height: 10px;
+      background-color: #eee;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      overflow: hidden; /* Ensures the inner bar stays within the container */
+    }
+
+    #progress-bar {
+      width: 0%; /* This will be updated with JavaScript */
+      height: 100%;
+      background-color: #4CAF50;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Sangeet Sagar (Prototype)</h1>
 
-<div class="music-container">
-    <img src="aasman_ko_chukar_dekha.jpg" alt="Aasman Ko Chukar Dekha">
-    <h3>Aasman Ko Chukar Dekha</h3>
-    <audio controls>
-        <source src="Aasman Ko Chukar Dekha _ Return Of Hanuman (Animation) I Daler Mehndi I Tuesday Tracks [Abk7L9zmbG4].mp3" type="audio/mpeg">
+    <div class="music-player">
+      <div id="visualizer"></div> <!-- Placeholder for the visualizer -->
+
+      <div id="progress-bar-container">
+          <div id="progress-bar"></div>
+      </div>
+
+      <audio id="audio-player" controls loop>
+        <!-- Source will be updated with JavaScript -->
+        <source src="" type="audio/mpeg">
         Your browser does not support the audio element.
-    </audio>
-</div>
+      </audio>
 
-<div class="music-container">
-    <img src="bade_bhaiya_humko_ff_khelna_hai.jpg" alt="Bade Bhaiya Humko FF Khelna Hai">
-    <h3>Bade Bhaiya Humko FF Khelna Hai</h3>
-    <audio controls>
-        <source src="Bade Bhaiya Humko FF Khelna Hai _ @arpitbaala ft. @TotalGaming093 _ Free Fire MAX [_EfZAOjo69U].mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+      <!-- <div class="controls">
+        <button onclick="playPause()">Play/Pause</button>
+        <button onclick="skipBackward()">Backward</button>
+        <button onclick="skipForward()">Forward</button>
+      </div> -->
+    </div>
 
-<div class="music-container">
-    <img src="ek_taraf_dost.jpg" alt="Ek Taraf Dost Aur Ek Taraf Pyar">
-    <h3>Ek Taraf Dost Aur Ek Taraf Pyar</h3>
-    <audio controls>
-        <source src="Ek Taraf Dost Aur Ek Taraf Payar _ Dona Ne Dil Pe Hi Kya Hai War _ Dona Ne Pucha Nai _ song#sadsong [cD97_yrnQK4] (1).mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+    <div class="playlist">
+      <h2>Playlist</h2>
+      <ul>
+        <li data-src="Aasman Ko Chukar Dekha _ Return Of Hanuman (Animation) I Daler Mehndi I Tuesday Tracks [Abk7L9zmbG4].mp3">Aasman Ko Chukar Dekha _ Return Of Hanuman</li>
+        <li data-src="Baazigar_64(PagalWorld.com.se).mp4.mp3">Baazigar</li>
+        <li data-src="Bade Bhaiya Humko FF Khelna Hai _ @arpitbaala ft. @TotalGaming093 _ Free Fire MAX [_EfZAOjo69U].mp3">Bade Bhaiya Humko FF Khelna Hai</li>
+        <li data-src="DAKU___INDERPAL_MOGA___CHANI_NATTAN___NEW_PUNJABI_SONG___LATEST_PUNJABI_SONG_2022__Daku_Ik_number_da(256k).mp3">DAKU</li>
+        <li data-src="Ek Taraf Dost Aur Ek Taraf Payar _ Dona Ne Dil Pe Hi Kya Hai War _ Dona Ne Pucha Nai _ song#sadsong [cD97_yrnQK4] (1).mp3">Ek Taraf Dost Aur Ek Taraf Payar</li>
+        <li data-src="Kaka WRLD - Bholenath (A Love Story) _ Official Video _ Arvindr Khaira _ Main Bhola Parvat Ka [a4pi2zKbf8Q].mp3">Kaka WRLD - Bholenath</li>
+        <li data-src="Mera Bhai Tu 2.0_ Official Video _ Yasser Desai _ Adnaan Shaikh, Sohail Shaikh [BGg7d12gDbU].mp3">Mera Bhai Tu 2.0</li>
+      </ul>
+    </div>
+  </div>
 
-<div class="music-container">
-    <img src="bholenath_a_love_story.jpg" alt="Bholenath (A Love Story)">
-    <h3>Bholenath (A Love Story)</h3>
-    <audio controls>
-        <source src="Kaka WRLD - Bholenath (A Love Story) _ Official Video _ Arvindr Khaira _ Main Bhola Parvat Ka [a4pi2zKbf8Q].mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+  <script>
+    const audioPlayer = document.getElementById('audio-player');
+    const playlistItems = document.querySelectorAll('.playlist li');
+    const progressBar = document.getElementById('progress-bar');
 
-<div class="music-container">
-    <img src="music5.jpg" alt="Music 5">
-    <h3>Music 5</h3>
-    <audio controls>
-        <source src="music5.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+    playlistItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const songSrc = item.getAttribute('data-src');
+        audioPlayer.src = songSrc;
+        audioPlayer.play();
+      });
+    });
 
-<div class="music-container">
-    <img src="music6.jpg" alt="Music 6">
-    <h3>Music 6</h3>
-    <audio controls>
-        <source src="music6.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
+    audioPlayer.addEventListener('timeupdate', function() {
+      const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+      progressBar.style.width = percentage + '%';
+    });
 
+    // Placeholder functions (replace with actual logic)
+    function playPause() {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+      } else {
+        audioPlayer.pause();
+      }
+    }
+
+    function skipBackward() {
+      // Implement skip backward logic
+      audioPlayer.currentTime -= 10; // Skip back 10 seconds
+    }
+
+    function skipForward() {
+      // Implement skip forward logic
+      audioPlayer.currentTime += 10; // Skip forward 10 seconds
+    }
+  </script>
 </body>
-  </html>
+                      </html>
