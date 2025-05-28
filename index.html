@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Music Player</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4A00E0, #8E2DE2); /* Gradient background */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        .music-container {
+            background-color: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            backdrop-filter: blur(10px); /* Further blur */
+            transition: transform 0.3s ease-in-out; /* Hover animation */
+        }
+
+        .music-container:hover {
+            transform: scale(1.05);
+        }
+
+        .music-container img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .music-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .music-container h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .music-container audio {
+            width: 100%;
+            outline: none;
+        }
+
+        /* Optional: Add a glowing effect */
+        .music-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #FF00FF, #00FFFF, #FF00FF);
+            z-index: -1;
+            transform: scale(1.1);
+            filter: blur(20px);
+            opacity: 0.5;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 15px;
+        }
+
+        .music-container:hover::before {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="music-container">
+    <img src="aasman_ko_chukar_dekha.jpg" alt="Aasman Ko Chukar Dekha">
+    <h3>Aasman Ko Chukar Dekha</h3>
+    <audio controls>
+        <source src="Aasman Ko Chukar Dekha _ Return Of Hanuman (Animation) I Daler Mehndi I Tuesday Tracks [Abk7L9zmbG4].mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="music-container">
+    <img src="bade_bhaiya_humko_ff_khelna_hai.jpg" alt="Bade Bhaiya Humko FF Khelna Hai">
+    <h3>Bade Bhaiya Humko FF Khelna Hai</h3>
+    <audio controls>
+        <source src="Bade Bhaiya Humko FF Khelna Hai _ @arpitbaala ft. @TotalGaming093 _ Free Fire MAX [_EfZAOjo69U].mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="music-container">
+    <img src="ek_taraf_dost.jpg" alt="Ek Taraf Dost Aur Ek Taraf Pyar">
+    <h3>Ek Taraf Dost Aur Ek Taraf Pyar</h3>
+    <audio controls>
+        <source src="Ek Taraf Dost Aur Ek Taraf Payar _ Dona Ne Dil Pe Hi Kya Hai War _ Dona Ne Pucha Nai _ song#sadsong [cD97_yrnQK4] (1).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="music-container">
+    <img src="bholenath_a_love_story.jpg" alt="Bholenath (A Love Story)">
+    <h3>Bholenath (A Love Story)</h3>
+    <audio controls>
+        <source src="Kaka WRLD - Bholenath (A Love Story) _ Official Video _ Arvindr Khaira _ Main Bhola Parvat Ka [a4pi2zKbf8Q].mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="music-container">
+    <img src="music5.jpg" alt="Music 5">
+    <h3>Music 5</h3>
+    <audio controls>
+        <source src="music5.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="music-container">
+    <img src="music6.jpg" alt="Music 6">
+    <h3>Music 6</h3>
+    <audio controls>
+        <source src="music6.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+</body>
+  </html>
