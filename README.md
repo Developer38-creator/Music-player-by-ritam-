@@ -1,19 +1,20 @@
 # Music Player
 
-This is a simple music player application that can play locally stored audio files.
+This is a simple music player website that can play our website audio files.(7 songs only (Hindi songs))
 
 ## Features
 
-* Playback of audio files from your device's local storage.
+* Playback of audio files from our website local storage.
 * Simple and user-friendly interface.
 * Play, pause, next, and previous controls.
 
 ## How to Use
 
-1.  Download and install the application.
-2.  Open the application.
-3.  Songs present on your device will be displayed automatically.
+1.  tap this link-https://developer38-creator.github.io/Music-player-by-ritam-/
+2.  Open the website .
+3.  Songs present on our website  will be displayed automatically.
 4.  Select a song to play.
+5. only 7 songs (Hindi)
 
 ## Future Plans
 
