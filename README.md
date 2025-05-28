@@ -10,7 +10,7 @@ This is a simple music player website that can play our website audio files.(7 s
 
 ## How to Use
 
-1.  [![Open](https://via.placeholder.com/150/0000FF/FFFFFF?Text=OPEN)](https://developer38-creator.github.io/Music-player-by-ritam-/)
+1.  [![Open](https://via.placeholder.com/150/0000FF/FFFFFF?Text=OPEN_the_music_website)](https://developer38-creator.github.io/Music-player-by-ritam-/)
 2.  Open the website .
 3.  Songs present on our website  will be displayed automatically.
 4.  Select a song to play.
