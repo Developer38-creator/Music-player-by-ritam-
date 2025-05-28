@@ -1,188 +1,412 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sangeet Sagar </title>
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Premium Music Player - Mobile
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
   <style>
-    /* Basic Styles - Adapt as needed */
-    body {
-      font-family: sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Center horizontally */
-      justify-content: flex-start; /* Align items to the top */
-      min-height: 100vh; /* Make sure the body fills the viewport height */
+   body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #121217);
+      color: #e0e0e0;
     }
-
-    .container {
-      width: 80%;
-      max-width: 600px; /* Limiting width for readability */
-      margin-top: 20px; /* Add some top margin */
+    /* Custom scrollbar for playlist */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
     }
-
-    h1 {
-      text-align: center;
-      color: #333;
+    ::-webkit-scrollbar-track {
+      background: #121217;
     }
-
-    .music-player {
-      background-color: #fff;
+    ::-webkit-scrollbar-thumb {
+      background: #6b7280;
       border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    audio {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    button {
-      background-color: #4CAF50; /* Green */
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      opacity: 0.8;
-    }
-
-    .playlist {
-      margin-top: 20px;
-    }
-
-    .playlist ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .playlist li {
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
-
-    .playlist li:hover {
-      background-color: #f9f9f9;
-    }
-
-    /* Simple Visualizer (Placeholder - Replace with JS-based visualizer) */
-    #visualizer {
-      width: 100%;
-      height: 50px;
-      background-color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 5px;
-    }
-
-    /* Placeholder Progress Bar */
-    #progress-bar-container {
-      width: 100%;
-      height: 10px;
-      background-color: #eee;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      overflow: hidden; /* Ensures the inner bar stays within the container */
-    }
-
-    #progress-bar {
-      width: 0%; /* This will be updated with JavaScript */
-      height: 100%;
-      background-color: #4CAF50;
-      border-radius: 5px;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Sangeet Sagar (Prototype)</h1>
-
-    <div class="music-player">
-      <div id="visualizer"></div> <!-- Placeholder for the visualizer -->
-
-      <div id="progress-bar-container">
-          <div id="progress-bar"></div>
+ </head>
+ <body class="flex flex-col min-h-screen">
+  <header class="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 shadow-lg">
+   <div class="flex items-center space-x-3">
+    <img alt="Music note icon in purple and pink gradient style" class="w-10 h-10 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/df3620b7-be77-43a9-051c-55a1a57d528b.jpg" width="40"/>
+    <h1 class="text-2xl font-extrabold tracking-wide text-white select-none">
+     Premium Player
+    </h1>
+   </div>
+  </header>
+  <main class="flex-grow flex flex-col max-w-md mx-auto px-4 py-6 gap-6 w-full">
+   <!-- Album Art & Song Info -->
+   <section aria-label="Now playing section" class="flex flex-col items-center bg-gradient-to-b from-purple-900 via-indigo-900 to-pink-900 rounded-3xl shadow-2xl p-6 w-full">
+    <img alt="Album art placeholder with abstract purple and pink music waves" class="rounded-3xl w-full max-w-xs shadow-2xl mb-6" height="320" id="album-art" src="https://storage.googleapis.com/a1aa/image/126f76c2-4f5c-4285-6746-7e875efbd37d.jpg" width="320"/>
+    <h2 class="text-2xl font-extrabold text-white tracking-wide mb-1 text-center" id="song-title">
+     Select a song
+    </h2>
+    <p class="text-indigo-300 font-semibold text-base mb-6 text-center" id="song-artist">
+     Your premium music experience
+    </p>
+    <div class="flex items-center justify-center space-x-6 w-full">
+     <button aria-label="Previous track" class="text-white hover:text-pink-400 transition text-3xl focus:outline-none focus:ring-4 focus:ring-pink-500 rounded-full" id="prev-btn">
+      <i class="fas fa-backward">
+      </i>
+     </button>
+     <button aria-label="Play or pause" class="text-white hover:text-pink-500 transition text-5xl focus:outline-none focus:ring-8 focus:ring-pink-600 rounded-full" id="play-pause-btn">
+      <i class="fas fa-play-circle">
+      </i>
+     </button>
+     <button aria-label="Next track" class="text-white hover:text-pink-400 transition text-3xl focus:outline-none focus:ring-4 focus:ring-pink-500 rounded-full" id="next-btn">
+      <i class="fas fa-forward">
+      </i>
+     </button>
+    </div>
+    <div class="w-full mt-6">
+     <input aria-label="Seek slider" class="w-full h-2 rounded-lg accent-pink-500 cursor-pointer" id="seek-slider" max="100" min="0" step="1" type="range" value="0"/>
+     <div class="flex justify-between text-xs text-indigo-300 mt-1 select-none font-mono">
+      <span id="current-time">
+       0:00
+      </span>
+      <span id="duration">
+       0:00
+      </span>
+     </div>
+    </div>
+    <div class="flex items-center justify-between w-full mt-6 space-x-4">
+     <button aria-label="Shuffle" class="text-gray-400 hover:text-pink-400 transition text-xl focus:outline-none focus:ring-4 focus:ring-pink-500 rounded" id="shuffle-btn" title="Shuffle">
+      <i class="fas fa-random">
+      </i>
+     </button>
+     <button aria-label="Repeat" class="text-gray-400 hover:text-pink-400 transition text-xl focus:outline-none focus:ring-4 focus:ring-pink-500 rounded" id="repeat-btn" title="Repeat">
+      <i class="fas fa-redo">
+      </i>
+     </button>
+     <div class="flex items-center space-x-2 flex-grow">
+      <i class="fas fa-volume-down text-gray-400">
+      </i>
+      <input aria-label="Volume slider" class="w-full h-2 rounded-lg accent-pink-500 cursor-pointer" id="volume-slider" max="1" min="0" step="0.01" type="range" value="0.7"/>
+      <i class="fas fa-volume-up text-gray-400">
+      </i>
+     </div>
+    </div>
+   </section>
+   <!-- Playlist -->
+   <section aria-label="Playlist section" class="bg-gradient-to-b from-indigo-900 via-purple-900 to-pink-900 rounded-3xl shadow-2xl p-4 flex flex-col w-full max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-700 scrollbar-track-indigo-900">
+    <h3 class="text-white text-xl font-extrabold mb-4 tracking-wide select-none">
+     Playlist
+    </h3>
+    <ul class="space-y-3" id="playlist">
+     <li aria-label="Play Aasman Ko Chukar Dekha _ Return Of Hanuman" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Aasman Ko Chukar Dekha _ Return Of Hanuman (Animation) I Daler Mehndi I Tuesday Tracks [Abk7L9zmbG4].mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Aasman Ko Chukar Dekha with animated colorful sky and musical notes" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/86d48fb8-f809-492d-e99e-08668a286c15.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Aasman Ko Chukar Dekha _ Return Of Hanuman
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Daler Mehndi | Tuesday Tracks
+        </p>
+       </div>
       </div>
-
-      <audio id="audio-player" controls loop>
-        <!-- Source will be updated with JavaScript -->
-        <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-
-      <!-- <div class="controls">
-        <button onclick="playPause()">Play/Pause</button>
-        <button onclick="skipBackward()">Backward</button>
-        <button onclick="skipForward()">Forward</button>
-      </div> -->
-    </div>
-
-    <div class="playlist">
-      <h2>Playlist</h2>
-      <ul>
-        <li data-src="Music folder 📁/Aasman Ko Chukar Dekha _ Return Of Hanuman (Animation) I Daler Mehndi I Tuesday Tracks [Abk7L9zmbG4].mp3">Aasman Ko Chukar Dekha _ Return Of Hanuman</li>
-        <li data-src="Music folder 📁/Baazigar_64(PagalWorld.com.se).mp4.mp3">Baazigar</li>
-        <li data-src="Music folder 📁/Bade Bhaiya Humko FF Khelna Hai _ @arpitbaala ft. @TotalGaming093 _ Free Fire MAX [_EfZAOjo69U].mp3">Bade Bhaiya Humko FF Khelna Hai</li>
-        <li data-src="Music folder 📁/DAKU___INDERPAL_MOGA___CHANI_NATTAN___NEW_PUNJABI_SONG___LATEST_PUNJABI_SONG_2022__Daku_Ik_number_da(256k).mp3">DAKU</li>
-        <li data-src="Music folder 📁/Ek Taraf Dost Aur Ek Taraf Payar _ Dona Ne Dil Pe Hi Kya Hai War _ Dona Ne Pucha Nai _ song#sadsong [cD97_yrnQK4] (1).mp3">Ek Taraf Dost Aur Ek Taraf Payar</li>
-        <li data-src="Music folder 📁/Kaka WRLD - Bholenath (A Love Story) _ Official Video _ Arvindr Khaira _ Main Bhola Parvat Ka [a4pi2zKbf8Q].mp3">Kaka WRLD - Bholenath</li>
-        <li data-src="Music folder 📁/Mera Bhai Tu 2.0_ Official Video _ Yasser Desai _ Adnaan Shaikh, Sohail Shaikh [BGg7d12gDbU].mp3">Mera Bhai Tu 2.0</li>
-      </ul>
-    </div>
-  </div>
-
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play Baazigar" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Baazigar_64(PagalWorld.com.se).mp4.mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Baazigar with dark moody background and sharp red text" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/bf2c16ca-e841-4e45-a8c0-cd81a7aa5e22.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Baazigar
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Unknown Artist
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play Bade Bhaiya Humko FF Khelna Hai" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Bade Bhaiya Humko FF Khelna Hai _ @arpitbaala ft. @TotalGaming093 _ Free Fire MAX [_EfZAOjo69U].mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Bade Bhaiya Humko FF Khelna Hai with vibrant gaming style graphics and neon colors" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ac00ed71-e1a8-4f5c-67df-fa87d30a471c.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Bade Bhaiya Humko FF Khelna Hai
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         @arpitbaala ft. @TotalGaming093
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play DAKU" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/DAKU___INDERPAL_MOGA___CHANI_NATTAN___NEW_PUNJABI_SONG___LATEST_PUNJABI_SONG_2022__Daku_Ik_number_da(256k).mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for DAKU with traditional Punjabi art and bold typography" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/27b3c3f6-0c98-4d75-e364-78cd1ef6b589.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         DAKU
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Inderpal Moga &amp; Chani Nattan
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play Ek Taraf Dost Aur Ek Taraf Payar" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Ek Taraf Dost Aur Ek Taraf Payar _ Dona Ne Dil Pe Hi Kya Hai War _ Dona Ne Pucha Nai _ song#sadsong [cD97_yrnQK4] (1).mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Ek Taraf Dost Aur Ek Taraf Payar with emotional sad song theme and soft pastel colors" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f8f8bbcf-9258-4cca-7617-66dfb14dbb6f.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Ek Taraf Dost Aur Ek Taraf Payar
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Dona Ne Dil Pe Hi Kya Hai War
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play Kaka WRLD - Bholenath" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Kaka WRLD - Bholenath (A Love Story) _ Official Video _ Arvindr Khaira _ Main Bhola Parvat Ka [a4pi2zKbf8Q].mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Kaka WRLD - Bholenath with love story theme and mountain background" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/63c42c70-7b87-4cda-2d47-bb7cf0f5ab44.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Kaka WRLD - Bholenath
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Arvindr Khaira
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+     <li aria-label="Play Mera Bhai Tu 2.0" class="cursor-pointer rounded-xl p-3 bg-indigo-800 hover:bg-pink-600 transition flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-pink-500" data-src="Music folder 📁/Mera Bhai Tu 2.0_ Official Video _ Yasser Desai _ Adnaan Shaikh, Sohail Shaikh [BGg7d12gDbU].mp3" tabindex="0">
+      <div class="flex items-center space-x-4">
+       <img alt="Album cover for Mera Bhai Tu 2.0 with modern video style and warm colors" class="w-12 h-12 rounded-lg shadow-md object-cover" height="48" loading="lazy" src="https://storage.googleapis.com/a1aa/image/b1a73b36-491b-431b-71e1-d53618c4325f.jpg" width="48"/>
+       <div>
+        <p class="text-white font-semibold truncate max-w-xs">
+         Mera Bhai Tu 2.0
+        </p>
+        <p class="text-indigo-300 text-xs truncate max-w-xs">
+         Yasser Desai
+        </p>
+       </div>
+      </div>
+      <i class="fas fa-play text-pink-400">
+      </i>
+     </li>
+    </ul>
+   </section>
+  </main>
+  <footer class="bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 text-gray-300 text-center py-4 select-none text-sm">
+   <p>
+    © 2024 Premium Player. All rights reserved.
+   </p>
+  </footer>
+  <audio id="audio" preload="metadata">
+  </audio>
   <script>
-    const audioPlayer = document.getElementById('audio-player');
-    const playlistItems = document.querySelectorAll('.playlist li');
-    const progressBar = document.getElementById('progress-bar');
+   (() => {
+      const audio = document.getElementById('audio');
+      const playPauseBtn = document.getElementById('play-pause-btn');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const shuffleBtn = document.getElementById('shuffle-btn');
+      const repeatBtn = document.getElementById('repeat-btn');
+      const volumeSlider = document.getElementById('volume-slider');
+      const seekSlider = document.getElementById('seek-slider');
+      const currentTimeEl = document.getElementById('current-time');
+      const durationEl = document.getElementById('duration');
+      const playlistEl = document.getElementById('playlist');
+      const albumArt = document.getElementById('album-art');
+      const songTitle = document.getElementById('song-title');
+      const songArtist = document.getElementById('song-artist');
 
-    playlistItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const songSrc = item.getAttribute('data-src');
-        audioPlayer.src = songSrc;
-        audioPlayer.play();
-      });
-    });
+      let playlist = Array.from(playlistEl.querySelectorAll('li'));
+      let currentIndex = 0;
+      let isPlaying = false;
+      let isShuffle = false;
+      let isRepeat = false;
 
-    audioPlayer.addEventListener('timeupdate', function() {
-      const percentage = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-      progressBar.style.width = percentage + '%';
-    });
-
-    // Placeholder functions (replace with actual logic)
-    function playPause() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-      } else {
-        audioPlayer.pause();
+      // Format seconds to mm:ss
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60) || 0;
+        const secs = Math.floor(seconds % 60) || 0;
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
       }
-    }
 
-    function skipBackward() {
-      // Implement skip backward logic
-      audioPlayer.currentTime -= 10; // Skip back 10 seconds
-    }
+      // Load song by index
+      function loadSong(index) {
+        if (index < 0) index = playlist.length - 1;
+        if (index >= playlist.length) index = 0;
+        currentIndex = index;
+        const li = playlist[currentIndex];
+        const src = li.getAttribute('data-src');
+        audio.src = src;
+        audio.load();
 
-    function skipForward() {
-      // Implement skip forward logic
-      audioPlayer.currentTime += 10; // Skip forward 10 seconds
-    }
+        // Update UI
+        playlist.forEach((item, i) => {
+          if (i === currentIndex) {
+            item.classList.add('bg-pink-600');
+            item.classList.remove('hover:bg-pink-600');
+            item.querySelector('i').classList.replace('fa-play', 'fa-pause');
+          } else {
+            item.classList.remove('bg-pink-600');
+            item.classList.add('hover:bg-pink-600');
+            item.querySelector('i').classList.replace('fa-pause', 'fa-play');
+          }
+        });
+
+        // Update song title and artist
+        songTitle.textContent = li.textContent.trim();
+        const artistText = li.querySelector('p:nth-child(2)')?.textContent || 'Unknown Artist';
+        songArtist.textContent = artistText;
+
+        // Update album art with placeholder based on title (simulate)
+        const baseText = encodeURIComponent(li.textContent.trim().slice(0, 20));
+        albumArt.src = `https://placehold.co/320x320/png?text=${baseText}`;
+        albumArt.alt = `Album art for ${li.textContent.trim()} with abstract music themed background`;
+
+        // Reset seek slider and times
+        seekSlider.value = 0;
+        currentTimeEl.textContent = '0:00';
+        durationEl.textContent = '0:00';
+      }
+
+      // Play or pause toggle
+      function togglePlayPause() {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      }
+
+      // Update play/pause button icon
+      audio.addEventListener('play', () => {
+        isPlaying = true;
+        playPauseBtn.querySelector('i').classList.replace('fa-play-circle', 'fa-pause-circle');
+      });
+      audio.addEventListener('pause', () => {
+        isPlaying = false;
+        playPauseBtn.querySelector('i').classList.replace('fa-pause-circle', 'fa-play-circle');
+      });
+
+      // Update seek slider and time display
+      audio.addEventListener('timeupdate', () => {
+        if (!seekSlider.max || seekSlider.max === '100') {
+          seekSlider.max = Math.floor(audio.duration) || 0;
+          durationEl.textContent = formatTime(audio.duration);
+        }
+        seekSlider.value = Math.floor(audio.currentTime);
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      });
+
+      // Seek audio when slider changes
+      seekSlider.addEventListener('input', () => {
+        audio.currentTime = seekSlider.value;
+      });
+
+      // Volume control
+      volumeSlider.addEventListener('input', () => {
+        audio.volume = volumeSlider.value;
+      });
+
+      // Play previous track
+      prevBtn.addEventListener('click', () => {
+        if (isShuffle) {
+          playRandomSong();
+        } else {
+          loadSong(currentIndex - 1);
+          audio.play();
+        }
+      });
+
+      // Play next track
+      nextBtn.addEventListener('click', () => {
+        if (isShuffle) {
+          playRandomSong();
+        } else {
+          loadSong(currentIndex + 1);
+          audio.play();
+        }
+      });
+
+      // Shuffle toggle
+      shuffleBtn.addEventListener('click', () => {
+        isShuffle = !isShuffle;
+        shuffleBtn.classList.toggle('text-pink-400', isShuffle);
+        shuffleBtn.classList.toggle('text-gray-400', !isShuffle);
+      });
+
+      // Repeat toggle
+      repeatBtn.addEventListener('click', () => {
+        isRepeat = !isRepeat;
+        repeatBtn.classList.toggle('text-pink-400', isRepeat);
+        repeatBtn.classList.toggle('text-gray-400', !isRepeat);
+      });
+
+      // When song ends
+      audio.addEventListener('ended', () => {
+        if (isRepeat) {
+          audio.currentTime = 0;
+          audio.play();
+        } else if (isShuffle) {
+          playRandomSong();
+        } else {
+          loadSong(currentIndex + 1);
+          audio.play();
+        }
+      });
+
+      // Play random song
+      function playRandomSong() {
+        let nextIndex = Math.floor(Math.random() * playlist.length);
+        while (nextIndex === currentIndex && playlist.length > 1) {
+          nextIndex = Math.floor(Math.random() * playlist.length);
+        }
+        loadSong(nextIndex);
+        audio.play();
+      }
+
+      // Play/pause button click
+      playPauseBtn.addEventListener('click', togglePlayPause);
+
+      // Playlist item click
+      playlist.forEach((li, index) => {
+        li.addEventListener('click', () => {
+          if (index === currentIndex && isPlaying) {
+            togglePlayPause();
+          } else {
+            loadSong(index);
+            audio.play();
+          }
+        });
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            li.click();
+          }
+        });
+      });
+
+      // Initialize volume
+      audio.volume = volumeSlider.value;
+
+      // Load first song initially
+      loadSong(0);
+    })();
   </script>
-</body>
-                      </html>
+ </body>
+        </html>
